@@ -74,7 +74,8 @@ namespace CallCenter.WebUI.Controllers.API
             {
                 var data = Mapper.Map<Call>(dto);
                 await _repository.InsertAsync(data);
-                await _hub.Clients.All.SendMessageToClient();
+                
+                if (_hub is not null) await _hub.Clients.All.SendMessageToClient();
                 
                 return Ok();
             }

@@ -80,7 +80,7 @@ namespace CallCenter.WebUI.Infrastructure.Extensions
             services.AddSingleton<ICallConstraintService, CallConstraintService>();
             
             services.AddSingleton<ICallDistributorService, CallDistributorService>();
-            //services.AddHostedService<CallDistributorHostingService>();
+            services.AddHostedService<CallDistributorHostingService>();
             
             services.AddSignalR();
             services.AddScoped<CallHub>();

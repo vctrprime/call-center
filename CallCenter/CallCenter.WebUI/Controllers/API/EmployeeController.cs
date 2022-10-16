@@ -87,7 +87,7 @@ namespace CallCenter.WebUI.Controllers.API
         /// <returns></returns>
         [HttpPut]
         [SwaggerResponse(StatusCodes.Status200OK)]
-        public async Task<IActionResult> Post(EmployeePutDto dto)
+        public async Task<IActionResult> Put(EmployeePutDto dto)
         {
             try
             {

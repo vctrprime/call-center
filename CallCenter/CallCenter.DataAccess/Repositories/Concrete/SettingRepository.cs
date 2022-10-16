@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using CallCenter.DataAccess.Contexts;
@@ -26,6 +27,8 @@ namespace CallCenter.DataAccess.Repositories.Concrete
 
         public async Task InsertAsync(Setting setting)
         {
+            if (setting.ExecuteTimeLimitRight <= setting.ExecuteTimeLimitLeft) throw new ArgumentException();
+            
             var id = (await GetAsync()).Id + 1;
             setting.Id = id;
             
