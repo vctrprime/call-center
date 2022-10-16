@@ -18,12 +18,12 @@ namespace CallCenter.DTO.Calls
         /// <summary>
         /// Время ожидания
         /// </summary>
-        public int WaitingTime { get; set; }
+        public int? WaitingTime { get; set; }
         
         /// <summary>
         /// Время исполнения
         /// </summary>
-        public int ExecutingTime { get; set; }
+        public int? ExecutingTime { get; set; }
         
         /// <summary>
         /// Исполнитель
@@ -38,6 +38,6 @@ namespace CallCenter.DTO.Calls
         /// <summary>
         /// Общее время
         /// </summary>
-        public int SummaryTime => WaitingTime + ExecutingTime;
+        public int? SummaryTime => !WaitingTime.HasValue || !ExecutingTime.HasValue ? null : WaitingTime + ExecutingTime;
     }
 }

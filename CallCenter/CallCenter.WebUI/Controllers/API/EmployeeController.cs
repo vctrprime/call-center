@@ -18,7 +18,7 @@ namespace CallCenter.WebUI.Controllers.API
     /// <summary>
     /// Работа с сотрудниками
     /// </summary>
-    [Route("api/employee")]
+    [Route("api/employees")]
     public class EmployeeController : BaseApiController
     {
         private readonly IEmployeeRepository _repository;

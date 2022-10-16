@@ -40,8 +40,11 @@ namespace CallCenter.Services.Concrete
             var employees = (await _employeeRepository.GetAsync()).ToArray();
             var calls = (await _callRepository.GetAsync()).ToArray();
             var setting = await settingRepository.GetAsync();
-
+            
+            //обработаем взятые в работу запросы
             var hadChangesTakenCalls = await CheckTakenCalls(calls.Where(c => !c.IsComplete && c.EmployeeId.HasValue), employees);
+            
+            //распределим новые запросы
             var hadChangesDistributeCalls =
                 await DistributeCallsForFreeEmployees(employees.Where(x => !x.WorkingRequestId.HasValue),
                     calls.Where(c => !c.EmployeeId.HasValue).ToArray(),
@@ -56,10 +59,16 @@ namespace CallCenter.Services.Concrete
             
             foreach (var call in takenCalls)
             {
+                
                 if (!(DateTime.Now >= call.FinishedDate)) continue;
                 
+                //если время больше расчетного, завершаем работу над запросом
                 call.IsComplete = true;
                 await _callRepository.UpdateAsync(call);
+
+                //освобождаем работника
+                var employee = employees.First(x => x.Id == call.EmployeeId);
+                employee.WorkingRequestId = null;
                 
                 hadChanges = true;
                     
@@ -77,15 +86,20 @@ namespace CallCenter.Services.Concrete
             
             foreach (var employee in freeEmployees)
             {
-                var call = notTakenCalls.FirstOrDefault();
+                var call = notTakenCalls.LastOrDefault();
                 if (call is null)
                     break;
                 
+                //проверяем должен ли работник взять этот запрос
                 if (!_callConstraintService.EmployeeCanTakeCall(employee, call, setting)) continue;
                 
                 _logger.LogInformation($"Запрос {call.Id} подходит {employee.Name}!");
+                
+                //рассчитываем время выполнения запроса
                 Random random = new Random();
                 call.TakenDate = DateTime.Now;
+                
+                //назначаем запрос на работника
                 call.EmployeeId = employee.Id;
                 call.FinishedDate = DateTime.Now.AddSeconds(random.Next(setting.ExecuteTimeLimitLeft, setting.ExecuteTimeLimitRight));
                 
