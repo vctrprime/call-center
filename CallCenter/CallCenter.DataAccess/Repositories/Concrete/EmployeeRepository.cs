@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,7 +5,6 @@ using CallCenter.DataAccess.Contexts;
 using CallCenter.DataAccess.Repositories.Abstract;
 using CallCenter.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
 
 namespace CallCenter.DataAccess.Repositories.Concrete
 {

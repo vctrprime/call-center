@@ -15,10 +15,10 @@ namespace CallCenter.MappingProfiles
                     act => act.MapFrom(s => s.WorkingRequestId.HasValue ? $"Исполняет запрос {s.WorkingRequestId}" : "Свободен"));
 
             CreateMap<EmployeePostDto, Employee>()
-                .ForMember(dest => dest.Position, act => act.MapFrom(s => (EmployeePosition)s.Position));
+                .ForMember(dest => dest.Position, act => act.MapFrom(s => (EmployeePosition) (s.Position == 0 ? 1 : s.Position)));
             
             CreateMap<EmployeePutDto, Employee>()
-                .ForMember(dest => dest.Position, act => act.MapFrom(s => (EmployeePosition)s.Position));
+                .ForMember(dest => dest.Position, act => act.MapFrom(s => (EmployeePosition)(s.Position == 0 ? 1 : s.Position)));
         }
     }
 }

@@ -7,6 +7,7 @@ using CallCenter.DTO.Settings;
 using CallCenter.Entities;
 using CallCenter.MappingProfiles;
 using CallCenter.WebUI.Controllers.API;
+using CallCenter.WebUI.Infrastructure.Attributes;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
@@ -123,6 +124,15 @@ namespace CallCenter.UnitTests.Controllers
             var controller = new SettingController(_logger, _mockMapper, _mockRepository.Object);
 
             base.VerifyActionHasAttribute<SwaggerResponseAttribute>(controller, "Post");
+        }
+        
+        [Fact]
+        public void VerifyPostHasSettingLimitAttribute()
+        {
+            //Arrange
+            var controller = new  SettingController(_logger, _mockMapper, _mockRepository.Object);
+
+            base.VerifyActionHasAttribute<SettingLimitAttribute>(controller, "Post");
         }
 
         [Fact]

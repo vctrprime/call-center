@@ -4,6 +4,7 @@ using AutoMapper;
 using CallCenter.DataAccess.Repositories.Abstract;
 using CallCenter.DTO.Settings;
 using CallCenter.Entities;
+using CallCenter.WebUI.Infrastructure.Attributes;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -61,6 +62,7 @@ namespace CallCenter.WebUI.Controllers.API
         /// <returns></returns>
         [HttpPost]
         [SwaggerResponse(StatusCodes.Status200OK)]
+        [SettingLimit]
         public async Task<IActionResult> Post(SettingPostDto dto)
         {
             try

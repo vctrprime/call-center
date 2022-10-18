@@ -2,7 +2,7 @@ import * as React from "react";
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css'; // Core grid CSS, always needed
 import 'ag-grid-community/styles/ag-theme-alpine.css';
-import {useEffect, useRef, useState} from "react"; // Optional theme CSS
+import {useRef, useState} from "react"; // Optional theme CSS
 
 
 const CallsGrid = ({fetchData, data}) => {

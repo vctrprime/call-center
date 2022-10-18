@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace CallCenter.DTO.Employees
 {
     /// <summary>
@@ -8,11 +10,13 @@ namespace CallCenter.DTO.Employees
         /// <summary>
         /// Имя
         /// </summary>
+        [Required]
         public string Name { get; set; }
         
         /// <summary>
         /// Должность
         /// </summary>
+        [Required]
         public int Position { get; set; }
 
     }
